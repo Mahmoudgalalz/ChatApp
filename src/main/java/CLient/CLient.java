@@ -6,7 +6,10 @@ package CLient;
  */
 
 
+import static CLient.friends.chat;
 import static CLient.friends.friendChat;
+import static CLient.friends.friendsList;
+import static CLient.name.Name;
 import static CLient.name.din;
 import static CLient.name.dout;
 import static CLient.name.s;
@@ -22,55 +25,29 @@ import java.net.Socket;
 
 public class CLient extends javax.swing.JFrame implements Runnable {
 
-//   public  static Socket s;
-//   public  static DataInputStream din;
-//   public   static DataOutputStream dout;
-//   public static BufferedReader br;
-//   public  static String str="",str2="", screen="";
     public static String msg="";
    
      
     public CLient() {
         initComponents();
-        nameChat.setText(friendChat);
-       
+        nameChat.setText(friendsList [friendChat]);
+       textArea.setText(chat[friendChat]);
         
     }
-    
 
-    public void read () throws IOException
-    {
-
-        while(!str2.equals("stop"))
-{
-//str=br.readLine();
-//dout.writeUTF(str);
-//dout.flush();
-str2=din.readUTF();
-    System.out.println("ssss");
-//System.out.println("Server says: "+str2);
-screen += "\n"+str2;
-textArea.setText(screen);
-
-}
-
-dout.close();
-s.close();
-    }
-    
     
     public void send()
     {
          try
         {
-            str= text.getText();//br.readLine();
-             // System.out.println(text.getText());
-            //  System.out.println(friendChat);
-            str= str+"#"+ friendChat;
-            dout.writeUTF(str);
+            str= text.getText();
+           /////       متنساش ال سكرول بانال
+           
+            String ss = str+"#"+ friendsList[friendChat];
+                dout.writeUTF(ss);
      
-            screen += "\n amin : "+str;
-            textArea.setText(screen);
+            chat[friendChat] += "\n" + Name +" : "+str;
+            textArea.setText(chat[friendChat]);
             text.setText("");
             
         }
@@ -90,34 +67,35 @@ s.close();
         text = new javax.swing.JTextField();
         send = new javax.swing.JToggleButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
         nameChat = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+
+        textArea.setBackground(new java.awt.Color(204, 204, 255));
         textArea.setColumns(20);
+        textArea.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        textArea.setForeground(new java.awt.Color(51, 51, 51));
         textArea.setRows(5);
         jScrollPane1.setViewportView(textArea);
 
+        text.setBackground(new java.awt.Color(204, 204, 255));
+        text.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        text.setForeground(new java.awt.Color(0, 51, 51));
         text.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textActionPerformed(evt);
             }
         });
 
+        send.setBackground(new java.awt.Color(255, 153, 51));
+        send.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        send.setForeground(new java.awt.Color(102, 102, 102));
         send.setText("send");
         send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendActionPerformed(evt);
-            }
-        });
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(102, 102, 102));
-        jButton1.setText("back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -142,17 +120,14 @@ s.close();
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(141, 141, 141)
+                .addGap(208, 208, 208)
                 .addComponent(nameChat, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(nameChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(nameChat, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
@@ -187,11 +162,6 @@ s.close();
        send();
     }//GEN-LAST:event_sendActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.setVisible(false);
-       new friends().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     public static void main(String args[]) throws Exception {
 
@@ -203,36 +173,21 @@ s.close();
         
         
         
-
-        while(!str2.equals("stop"))
-{
-//str=br.readLine();
-//dout.writeUTF(str);
-//dout.flush();
-    System.out.println("dfkln");
-str2=din.readUTF();
-    System.out.println("ssss");
-//System.out.println("Server says: "+str2);
-screen += "\n"+str2;
-textArea.setText(screen);
-
-}
-        System.out.println("flkjn");
-dout.close();
-s.close();
+      
+        
+      
 
 
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel nameChat;
     private static javax.swing.JToggleButton send;
     private static javax.swing.JTextField text;
-    private static javax.swing.JTextArea textArea;
+    public static javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 
     @Override

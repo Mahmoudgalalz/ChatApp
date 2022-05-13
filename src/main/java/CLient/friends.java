@@ -1,27 +1,32 @@
 package CLient;
 
 import static CLient.name.Name;
+import static CLient.name.dout;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-class User{
-    String name;
-    String chat;
-}
+
 public class friends extends javax.swing.JFrame {
 
-    public static String friends[] = new String [1000];
+    public static String friendsList[] = new String [1000];
     public static String chat[] = new String [1000];
-    int friendsNum=0;
-    public static  String friendChat = "";
+    public static int friendsNum=0;
+    public static int friendChat ;
+    
     public friends() {
         initComponents();
         welcomeText.setText("Welcome, " + Name);
         youAreFriends.setVisible(false);
+         listFriends.setListData(friendsList);
+         Arrays.fill(chat, "");
     }
 
     /**
@@ -33,6 +38,7 @@ public class friends extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listFriends = new javax.swing.JList<>();
         welcomeText = new javax.swing.JLabel();
@@ -42,7 +48,18 @@ public class friends extends javax.swing.JFrame {
         youAreFriends = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setLayout(null);
+
+        listFriends.setBackground(new java.awt.Color(204, 204, 255));
+        listFriends.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        listFriends.setForeground(new java.awt.Color(51, 51, 51));
         listFriends.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listFriendsMouseClicked(evt);
@@ -50,14 +67,23 @@ public class friends extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listFriends);
 
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 180, 214, 392);
+
         welcomeText.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         welcomeText.setForeground(new java.awt.Color(102, 102, 102));
         welcomeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(welcomeText);
+        welcomeText.setBounds(80, 30, 460, 62);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("my Friends");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(40, 130, 190, 40);
 
+        addFriendText.setBackground(new java.awt.Color(204, 204, 255));
         addFriendText.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         addFriendText.setForeground(new java.awt.Color(102, 102, 102));
         addFriendText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -72,101 +98,93 @@ public class friends extends javax.swing.JFrame {
                 addFriendTextActionPerformed(evt);
             }
         });
+        jPanel1.add(addFriendText);
+        addFriendText.setBounds(340, 220, 290, 65);
 
+        jButton1.setBackground(new java.awt.Color(255, 153, 102));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(102, 102, 102));
         jButton1.setText("Add friend");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(410, 320, 156, 36);
 
         youAreFriends.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         youAreFriends.setForeground(new java.awt.Color(153, 0, 0));
         youAreFriends.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         youAreFriends.setText("you are friends");
+        jPanel1.add(youAreFriends);
+        youAreFriends.setBounds(360, 380, 253, 48);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(welcomeText, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(112, 112, 112))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(youAreFriends, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(addFriendText, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
-                                .addGap(67, 67, 67))))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(welcomeText, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(addFriendText, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(youAreFriends, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listFriendsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFriendsMouseClicked
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        String ss = "logout";
+        try {
+            dout.writeUTF(ss);
+        } catch (IOException ex) {
+            Logger.getLogger(friends.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        friendChat = listFriends.getSelectedValue();
-        new CLient().setVisible(true);
-        this.setVisible(false);
-        youAreFriends.setVisible(false);
-    }//GEN-LAST:event_listFriendsMouseClicked
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        for (int i=1 ; i<=friendsNum ; ++i)
+        {
+            if (friendsList[i].equals( addFriendText.getText()) )
+            {
+                youAreFriends.setVisible(true);
+                return;
+            }
+        }
+        friendsList [++friendsNum] = addFriendText.getText();
+
+        listFriends.setListData(friendsList);
+
+    }//GEN-LAST:event_jButton1MouseClicked
 
     private void addFriendTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addFriendTextActionPerformed
 
     private void addFriendTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addFriendTextMouseClicked
-      addFriendText.setText("");
-      youAreFriends.setVisible(false);
+        addFriendText.setText("");
+        youAreFriends.setVisible(false);
     }//GEN-LAST:event_addFriendTextMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           
-         for (int i=1 ; i<=friendsNum ; ++i)
-         {
-             if (friends[i].equals( addFriendText.getText()) )
-             {
-                 youAreFriends.setVisible(true);
-                 return;
-             }
-         }
-       friends [++friendsNum] = addFriendText.getText();
-           
-         listFriends.setListData(friends);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void listFriendsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFriendsMouseClicked
+
+        friendChat = listFriends.getSelectedIndex();
+        System.out.println(friendChat);
+        new CLient().setVisible(true);
+
+        // youAreFriends.setVisible(false);
+    }//GEN-LAST:event_listFriendsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -207,8 +225,9 @@ public class friends extends javax.swing.JFrame {
     private javax.swing.JTextField addFriendText;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private static javax.swing.JList<String> listFriends;
+    private javax.swing.JList<String> listFriends;
     private javax.swing.JLabel welcomeText;
     private javax.swing.JLabel youAreFriends;
     // End of variables declaration//GEN-END:variables

@@ -6,12 +6,18 @@ package CLient;
 //import static CLient.CLient.dout;
 //import static CLient.CLient.s;
 //import static CLient.CLient.str;
+import static CLient.CLient.textArea;
 import CLient.friends;
+import static CLient.friends.chat;
+import static CLient.friends.friendChat;
+import static CLient.friends.friendsList;
+import static CLient.friends.friendsNum;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.StringTokenizer;
 
 
 public class name extends javax.swing.JFrame {
@@ -39,11 +45,15 @@ public  static Socket s;
         jPanel1 = new javax.swing.JPanel();
         textName = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(550, 450));
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setLayout(null);
 
+        textName.setBackground(new java.awt.Color(204, 204, 255));
         textName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         textName.setForeground(new java.awt.Color(102, 102, 102));
         textName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -58,7 +68,10 @@ public  static Socket s;
                 textNameActionPerformed(evt);
             }
         });
+        jPanel1.add(textName);
+        textName.setBounds(96, 149, 376, 62);
 
+        jButton1.setBackground(new java.awt.Color(255, 153, 51));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jButton1.setForeground(new java.awt.Color(102, 102, 102));
         jButton1.setText("join");
@@ -67,40 +80,22 @@ public  static Socket s;
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(175, 262, 214, 60);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(textName, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(113, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(textName, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon("F:\\Client\\img\\Picture1.png")); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(240, 30, 116, 95);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -161,14 +156,51 @@ public  static Socket s;
                 new name().setVisible(true);
             }
         });
-          s=new Socket("chatcneter.francecentral.cloudapp.azure.com",2020);
+          s=new Socket("localhost",2020);
         din=new DataInputStream(s.getInputStream());
         dout=new DataOutputStream(s.getOutputStream());
          br=new BufferedReader(new InputStreamReader(System.in));
+        
+         
+         
+  while(true)
+{
+
+str2=din.readUTF();
+
+  String sendName="";
+  String msg="";
+    System.out.println("msg come");
+   StringTokenizer st =new StringTokenizer(str2,"#");
+   
+   sendName = st.nextToken();
+   msg = st.nextToken();
+
+   int IDfriend = 1;
+   
+   for (int i=0; i<=friendsNum+5 ; ++i)
+   {
+       if (friendsList[i].equals(sendName)) {
+           System.out.println("found");
+           IDfriend = i;
+       }
+       
+   }
+
+chat[IDfriend] += "\n"+ sendName +" : "+msg;
+
+if (IDfriend == friendChat)
+textArea.setText(chat[friendChat]);
+
+}
+
+//dout.close();
+//s.close();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textName;
     // End of variables declaration//GEN-END:variables
