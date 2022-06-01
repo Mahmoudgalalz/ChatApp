@@ -6,7 +6,7 @@ Chat App, using java Server, and client under Sockets methodology
 - Store the messages
 - Sounds when messages arrive
 
-# [Server](/tree/Server)
+# [Server](https://github.com/Mahmoudgalalz/ChatApp/tree/Server)
 - Handling Clients joining via Sockets with Threads for each one 
 - Directing Messages to specific client
 - Handling Users Error that interrupt the Server to have exceptions
